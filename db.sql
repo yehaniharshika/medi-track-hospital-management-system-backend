@@ -1,15 +1,10 @@
 
--- Create database schema
 
-CREATE DATABASE Thogakade;
+CREATE DATABASE MediTrack;
 
-USE Thogakade;
+USE MediTrack;
 
-
-
--- Table for customers
-
-CREATE TABLE Customer (
+CREATE TABLE Department (
 
                           CustomerID INT AUTO_INCREMENT PRIMARY KEY,
 
