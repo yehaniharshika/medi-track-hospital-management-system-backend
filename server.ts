@@ -1,7 +1,5 @@
 import express from 'express';
-import customerRoutes from "./routes/customer-routes";
-import itemRoutes from "./routes/item-routes";
-import orderRoutes from "./routes/order-routes";
+
 
 const app = express();
 
@@ -15,12 +13,12 @@ app.use('/',(req,res,next)=>{
     next();
 })
 
-app.use('/customer',customerRoutes);
+/*app.use('/customer',customerRoutes);
 app.use('/item',itemRoutes);
-app.use('/order',orderRoutes);
+app.use('/order',orderRoutes);*/
 
-app.listen(3002, (err=>{
-    console.log("Server running on port 3002");
+app.listen(3003, (err=>{
+    console.log("Server running on port 3003");
 }));
 
 app.use('/',(req,res,next)=>{
