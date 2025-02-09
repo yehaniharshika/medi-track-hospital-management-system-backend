@@ -1,4 +1,5 @@
 import express from 'express';
+import departmentRoutes from "./routes/department-routes";
 
 
 const app = express();
@@ -13,8 +14,8 @@ app.use('/',(req,res,next)=>{
     next();
 })
 
-/*app.use('/customer',customerRoutes);
-app.use('/item',itemRoutes);
+app.use('/department',departmentRoutes);
+/*app.use('/item',itemRoutes);
 app.use('/order',orderRoutes);*/
 
 app.listen(3003, (err=>{

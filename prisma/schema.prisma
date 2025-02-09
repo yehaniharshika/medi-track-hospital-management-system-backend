@@ -14,10 +14,23 @@ datasource db {
 }
 
 model Department {
-  departmentId     String @id
+  departmentId     String   @id
   departmentName   String
-  departmentEmail  String @unique
+  departmentEmail  String   @unique
   location         String
   headOfDepartment String
   phoneNumber      String
+  doctors          Doctor[]
+}
+
+model Doctor {
+  doctorId      String     @id
+  doctorName    String
+  specialty     String
+  doctorImg     String
+  gender        String
+  contactNumber String
+  email         String     @unique
+  departmentId  String
+  department    Department @relation(fields: [departmentId], references: [departmentId]) // Many-to-one relationship
 }
