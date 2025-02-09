@@ -12,3 +12,12 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Department {
+  departmentId     String @id
+  departmentName   String
+  departmentEmail  String @unique
+  location         String
+  headOfDepartment String
+  phoneNumber      String
+}
