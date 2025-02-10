@@ -2,7 +2,7 @@ export default class Doctor {
     doctorId!: string;
     doctorName!: string;
     specialty!: string;
-    doctorImg!: string | null;
+    doctorImg!: string;
     gender!: string;
     contactNumber!: string;
     email!: string;
