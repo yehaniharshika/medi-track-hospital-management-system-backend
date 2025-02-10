@@ -5,22 +5,37 @@ const prisma = new PrismaClient();
 
 export async function DoctorAdd(doc: Doctor) {
     try {
+        // Validate that required fields are not undefined or empty
+        if (
+            !doc.doctorId ||
+            !doc.doctorName ||
+            !doc.specialty ||
+            !doc.gender ||
+            !doc.contactNumber ||
+            !doc.email ||
+            !doc.departmentId
+        ) {
+            throw new Error("Missing required fields");
+        }
+
         const newDoctor = await prisma.doctor.create({
             data: {
                 doctorId: doc.doctorId,
                 doctorName: doc.doctorName,
                 specialty: doc.specialty,
-                doctorImg: doc.doctorImg,
+                doctorImg: doc.doctorImg || "",
                 gender: doc.gender,
                 contactNumber: doc.contactNumber,
                 email: doc.email,
                 departmentId: doc.departmentId
             }
         });
-        console.log("Doctor Added: ",newDoctor);
+
+        console.log("Doctor Added:", newDoctor);
         return newDoctor;
     } catch (err) {
         console.error("Error adding doctor:", err);
+        throw err;
     }
 }
 

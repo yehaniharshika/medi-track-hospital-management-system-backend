@@ -27,7 +27,7 @@ model Doctor {
   doctorId      String     @id
   doctorName    String
   specialty     String
-  doctorImg     String
+  doctorImg     String     @db.Text
   gender        String
   contactNumber String
   email         String     @unique
