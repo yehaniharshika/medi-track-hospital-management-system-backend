@@ -51,24 +51,25 @@ export async function DoctorDelete(doctorId:string){
     }
 }
 
-export async function DoctorUpdate(doctorId:string,doc:Doctor){
+export async function DoctorUpdate(doctorId: string, doctor: Partial<Doctor>, doctorImg?: string) {
     try {
         const updatedDoctor = await prisma.doctor.update({
-            where: {doctorId: doc.doctorId},
+            where: { doctorId }, // Ensure doctorId is used for lookup
             data: {
-                doctorName: doc.doctorName,
-                specialty: doc.specialty,
-                doctorImg: doc.doctorImg,
-                gender: doc.gender,
-                contactNumber: doc.contactNumber,
-                email: doc.email,
-                departmentId: doc.departmentId
+                doctorName: doctor.doctorName,
+                specialty: doctor.specialty,
+                gender: doctor.gender,
+                contactNumber: doctor.contactNumber,
+                email: doctor.email,
+                departmentId: doctor.departmentId,
+                doctorImg: doctorImg ? doctorImg : doctor.doctorImg // Update image only if provided
             }
-        })
+        });
         console.log("Doctor updated: ",updatedDoctor);
         return updatedDoctor;
-    }catch (err){
-        console.log("Error updating doctor",err);
+    } catch (error) {
+        console.error("Error updating doctor:", error);
+        throw new Error("Doctor update failed");
     }
 }
 
