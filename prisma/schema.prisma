@@ -21,6 +21,7 @@ model Department {
   headOfDepartment String
   phoneNumber      String
   doctors          Doctor[]
+  nurses           Nurse[]
 }
 
 model Doctor {
@@ -30,6 +31,18 @@ model Doctor {
   doctorImg     String     @db.Text
   gender        String
   contactNumber String
+  email         String     @unique
+  departmentId  String
+  department    Department @relation(fields: [departmentId], references: [departmentId]) // Many-to-one relationship
+}
+
+model Nurse {
+  nurseId       String     @id
+  nurseName     String
+  nurseImg      String     @db.Text
+  gender        String
+  contactNumber String
+  qualification String
   email         String     @unique
   departmentId  String
   department    Department @relation(fields: [departmentId], references: [departmentId]) // Many-to-one relationship

@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import {DoctorAdd, DoctorDelete, DoctorUpdate} from "../database/doctor-data-store";
+import {DoctorAdd, DoctorDelete, DoctorUpdate, getAllDoctors} from "../database/doctor-data-store";
 import multer from "multer";
 import Doctor from "../model/Doctor";
 import {getAllDepartments} from "../database/department-data-store";
@@ -71,7 +71,7 @@ router.put("/update/:doctorId", upload.single("doctorImg"), async (req: MulterRe
 
 router.get("/view",async (req,res) => {
     try {
-        const doctors = await getAllDepartments();
+        const doctors = await getAllDoctors();
         res.json(doctors);
     }catch (err){
         console.log("Error getting doctors",err);
