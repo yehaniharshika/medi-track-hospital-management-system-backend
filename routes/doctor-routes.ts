@@ -1,8 +1,6 @@
 import express, { Request, Response } from "express";
 import {DoctorAdd, DoctorDelete, DoctorUpdate, getAllDoctors} from "../database/doctor-data-store";
 import multer from "multer";
-import Doctor from "../model/Doctor";
-import {getAllDepartments} from "../database/department-data-store";
 
 // configure "Multer" for handling file uploads
 const upload = multer({ storage: multer.memoryStorage() });
