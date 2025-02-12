@@ -19,6 +19,7 @@ app.use('/',(req,res,next)=>{
 app.use('/department',departmentRoutes);
 app.use('/doctor',doctorRoutes);
 app.use('/nurse',nurseRoutes);
+app.use('/patient',nurseRoutes);
 
 app.listen(3003, (err=>{
     console.log("Server running on port 3003");
