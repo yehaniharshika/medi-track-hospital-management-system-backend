@@ -1,6 +1,7 @@
 import express from 'express';
 import departmentRoutes from "./routes/department-routes";
 import doctorRoutes from "./routes/doctor-routes";
+import nurseRoutes from "./routes/nurse-routes";
 
 
 const app = express();
@@ -17,7 +18,7 @@ app.use('/',(req,res,next)=>{
 
 app.use('/department',departmentRoutes);
 app.use('/doctor',doctorRoutes);
-/*app.use('/order',orderRoutes);*/
+app.use('/nurse',nurseRoutes);
 
 app.listen(3003, (err=>{
     console.log("Server running on port 3003");
