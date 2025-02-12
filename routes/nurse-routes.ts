@@ -1,7 +1,6 @@
 import express, {Request, Response} from "express";
 import multer from "multer";
-import {DoctorAdd} from "../database/doctor-data-store";
-import {NurseAdd} from "../database/nurse-data-store";
+import {getAllNurses, NurseAdd, NurseDelete, NurseUpdate} from "../database/nurse-data-store";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -33,4 +32,43 @@ router.post("/add", upload.single("nurseImg"), async (req: MulterRequest, res: R
     }
 });
 
+router.delete("/delete/:nurseId",async (req,res) => {
+    const nurseId : string = String(req.params.nurseId);
+    try {
+        const deletedNurse = await NurseDelete(nurseId);
+        res.json(deletedNurse);
+    }catch (err){
+        console.log("Error deleting nurse",err);
+    }
+});
+
+router.put("/update/:nurseId", upload.single("nurseImg"), async (req: MulterRequest, res: Response) => {
+    const nurseId: string = req.params.nurseId;
+
+    const { nurseName, gender, contactNumber, qualification, email, departmentId } = req.body;
+
+    const nurseImg = req.file ? req.file.buffer.toString("base64") : undefined;
+
+    try {
+        const updatedNurse = await NurseUpdate(
+            nurseId,
+            { nurseName, gender, contactNumber,qualification, email, departmentId },
+            nurseImg
+        );
+
+        res.json({ message: "Nurse updated successfully", updatedNurse });
+    } catch (err) {
+        console.error("Error updating nurse:", err);
+        res.status(400).json({ error: "Nurse update failed" });
+    }
+});
+
+router.get("/view",async (req,res) => {
+    try {
+        const nurses = await getAllNurses();
+        res.json(nurses);
+    }catch (err){
+        console.log("Error getting nurses",err);
+    }
+})
 export default router;
