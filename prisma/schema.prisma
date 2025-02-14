@@ -113,14 +113,14 @@ model Payment {
 }
 
 model PaymentDetails {
-  paymentDetailsId Int      @id @default(autoincrement())
-  payment          Payment  @relation(fields: [paymentId], references: [paymentId], onDelete: Cascade)
-  paymentId        String
-  medicine         Medicine @relation(fields: [medicineId], references: [medicineId], onDelete: Cascade)
-  medicineId       String
-  getQty           Int
-  Price            String
-  totalPrice       String
-  discount         String
-  balance          String
+  medicinePaymentDetailsId Int      @id @default(autoincrement())
+  payment                  Payment  @relation(fields: [paymentId], references: [paymentId], onDelete: Cascade)
+  paymentId                String
+  medicine                 Medicine @relation(fields: [medicineId], references: [medicineId], onDelete: Cascade)
+  medicineId               String
+  getQty                   Int
+  price                    String
+  totalPrice               String
+  discount                 String
+  balance                  String
 }
