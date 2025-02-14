@@ -28,7 +28,7 @@ export async function NurseAdd(n:Nurse){
 
 export async function NurseUpdate(nurseId: string, nurse: Partial<Nurse>, nurseImg?: string){
     try {
-        const updatesNurse = await prisma.nurse.update({
+        const updatedNurse = await prisma.nurse.update({
             where: {nurseId},
             data: {
                 nurseName: nurse.nurseName,
@@ -40,8 +40,8 @@ export async function NurseUpdate(nurseId: string, nurse: Partial<Nurse>, nurseI
                 nurseImg: nurseImg ? nurseImg : nurse.nurseImg
             }
         });
-        console.log("Nurse updated: ",updatesNurse);
-        return updatesNurse;
+        console.log("Nurse updated: ",updatedNurse);
+        return updatedNurse;
     }catch (err){
         console.log("Error updating nurse: ",err);
     }
