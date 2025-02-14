@@ -1,7 +1,7 @@
 import multer from "multer";
 import express, {Request, Response} from "express";
-import {MedicineAdd, MedicineDelete, MedicineUpdate} from "../database/medicine-data-store";
-import {NurseUpdate} from "../database/nurse-data-store";
+import {getAllMedicines, MedicineAdd, MedicineDelete, MedicineUpdate} from "../database/medicine-data-store";
+import {getAllNurses, NurseUpdate} from "../database/nurse-data-store";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -64,5 +64,13 @@ router.delete("/delete/:medicineId",async (req,res) => {
     }
 });
 
+router.get("/view",async (req,res) => {
+    try {
+        const medicines = await getAllMedicines();
+        res.json(medicines);
+    }catch (err){
+        console.log("Error getting medicines",err);
+    }
+});
 export default router;
 
