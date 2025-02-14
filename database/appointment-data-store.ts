@@ -56,7 +56,7 @@ export async function AppointmentUpdate(appointmentCode:string,app:Appointment){
     }
 }
 
-export async function getAllAppointment(){
+export async function getAllAppointments(){
     try {
         return await prisma.appointment.findMany();
     }catch (err){
