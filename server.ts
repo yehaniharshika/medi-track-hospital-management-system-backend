@@ -4,6 +4,7 @@ import doctorRoutes from "./routes/doctor-routes";
 import nurseRoutes from "./routes/nurse-routes";
 import patientRoutes from "./routes/patient-routes";
 import medicalReportRoutes from "./routes/medical-report-routes";
+import appointmentRoutes from "./routes/appointment-routes";
 
 
 const app = express();
@@ -23,6 +24,8 @@ app.use('/doctor',doctorRoutes);
 app.use('/nurse',nurseRoutes);
 app.use('/patient',patientRoutes);
 app.use('/medicalReport',medicalReportRoutes);
+app.use('/appointment',appointmentRoutes);
+
 
 
 app.listen(3003, (err=>{
