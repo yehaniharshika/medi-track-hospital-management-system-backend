@@ -13,7 +13,7 @@ export async function MedicineAdd(m:Medicine){
                 medicineImg: m.medicineImg || "",
                 dosage_form: m.dosage_form,
                 unit_price: m.unit_price,
-                quantity_in_stock: m.quantity_in_stock,
+                quantity_in_stock: parseInt(m.quantity_in_stock.toString()),
                 expiry_date: m.expiry_date
             }
         });

@@ -5,6 +5,6 @@ export default class Medicine{
     medicineImg!: string;
     dosage_form!: string;
     unit_price!: string;
-    quantity_in_stock!: string;
+    quantity_in_stock!: number;
     expiry_date!: string;
 }

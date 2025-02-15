@@ -3,6 +3,6 @@ import MedicinePaymentDetails from "./MedicinePaymentDetails";
 export default class Payment{
     paymentId!:number;
     paymentDate!:string;
-    patientId!:number;
+    patientId!:string;
     medicineItems!:MedicinePaymentDetails[];
 }
