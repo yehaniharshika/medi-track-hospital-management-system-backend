@@ -7,13 +7,13 @@ export async function PaymentCreate(paymentData: Payment) {
     try {
         const newPayment = await prisma.payment.create({
             data: {
-                paymentId: paymentData.paymentId.toString(), // Ensure it's a string
+                paymentId: paymentData.paymentId.toString(),
                 paymentDate: paymentData.paymentDate,
                 patientId: paymentData.patientId,
-                paymentDetails: {  // Ensure this matches your Prisma schema relation
+                paymentDetails: {
                     create: paymentData.medicineItems.map(medicine => ({
                         medicineId: medicine.medicineId,
-                        getQty: Number(medicine.getQty),  // Ensure number
+                        getQty: Number(medicine.getQty),
                         price: String(medicine.price), // Convert number to string
                         totalPrice: String(medicine.totalPrice),
                         discount: String(medicine.discount),
@@ -33,7 +33,7 @@ export async function PaymentCreate(paymentData: Payment) {
                 throw new Error(`Medicine with Id ${medicine.medicineId} not found`);
             }
 
-            // Ensure quantity_in_stock is treated as a number
+
             const newQuantity = Number(existingMedicine.quantity_in_stock) - Number(medicine.getQty);
 
             if (newQuantity < 0) {
@@ -42,7 +42,7 @@ export async function PaymentCreate(paymentData: Payment) {
 
             await prisma.medicine.update({
                 where: { medicineId: medicine.medicineId },
-                data: { quantity_in_stock: newQuantity } // Ensure it's a number
+                data: { quantity_in_stock: newQuantity }
             });
         }
 
@@ -50,6 +50,6 @@ export async function PaymentCreate(paymentData: Payment) {
         return newPayment;
     } catch (err) {
         console.error("Error creating payment", err);
-        throw err; // Rethrow error for better debugging
+        throw err; 
     }
 }
