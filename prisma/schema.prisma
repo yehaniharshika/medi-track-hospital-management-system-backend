@@ -93,26 +93,26 @@ model Appointment {
 }
 
 model Medicine {
-  medicineId        String           @id
+  medicineId        String                   @id
   medicineName      String
   brand             String
-  medicineImg       String           @db.Text
+  medicineImg       String                   @db.Text
   dosage_form       String
   unit_price        String
-  quantity_in_stock String
+  quantity_in_stock Int
   expiry_date       String
-  PaymentDetails    PaymentDetails[]
+  PaymentDetails    MedicinePaymentDetails[]
 }
 
 model Payment {
-  paymentId      String           @id
+  paymentId      String                   @id
   paymentDate    String
-  patient        Patient          @relation(fields: [patientId], references: [patientId], onDelete: Cascade)
+  patient        Patient                  @relation(fields: [patientId], references: [patientId], onDelete: Cascade)
   patientId      String
-  paymentDetails PaymentDetails[]
+  paymentDetails MedicinePaymentDetails[]
 }
 
-model PaymentDetails {
+model MedicinePaymentDetails {
   medicinePaymentDetailsId Int      @id @default(autoincrement())
   payment                  Payment  @relation(fields: [paymentId], references: [paymentId], onDelete: Cascade)
   paymentId                String
