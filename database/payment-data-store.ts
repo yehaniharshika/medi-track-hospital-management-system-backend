@@ -50,6 +50,6 @@ export async function PaymentCreate(paymentData: Payment) {
         return newPayment;
     } catch (err) {
         console.error("Error creating payment", err);
-        throw err; 
+        throw err;
     }
 }

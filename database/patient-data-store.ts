@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 export async function PatientAdd(p:Patient){
     try {
+
         const newPatient = await prisma.patient.create({
             data: {
                 patientId: p.patientId,
@@ -24,7 +25,7 @@ export async function PatientAdd(p:Patient){
         });
         console.log("Patient Added: ",newPatient);
     }catch (err){
-        console.log("Error adding nurse",err);
+        console.log("Error adding Patient",err);
         throw err;
     }
 }
@@ -73,3 +74,4 @@ export async function getAllPatients(){
         console.log("Error getting nurses",err);
     }
 }
+

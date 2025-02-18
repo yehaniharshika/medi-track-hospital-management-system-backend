@@ -24,26 +24,31 @@ export async function MedicineAdd(m:Medicine){
     }
 }
 
-export async function MedicineUpdate(medicineId: string, medicine: Partial<Medicine>, medicineImg?: string){
+export async function MedicineUpdate(medicineId: string, medicine: Partial<Medicine>, medicineImg?: string) {
     try {
         const updatedMedicine = await prisma.medicine.update({
-            where: {medicineId},
+            where: { medicineId },
             data: {
                 medicineName: medicine.medicineName,
                 brand: medicine.brand,
                 dosage_form: medicine.dosage_form,
                 unit_price: medicine.unit_price,
-                quantity_in_stock: medicine.quantity_in_stock,
+                quantity_in_stock: medicine.quantity_in_stock
+                    ? Number(medicine.quantity_in_stock)
+                    : undefined, // Convert to number
                 expiry_date: medicine.expiry_date,
                 medicineImg: medicineImg ? medicineImg : medicine.medicineImg
             }
         });
-        console.log("Medicine updated: ",updatedMedicine);
+
+        console.log("Medicine updated: ", updatedMedicine);
         return updatedMedicine;
-    }catch (err){
-        console.log("Error updating Medicine",err);
+    } catch (err) {
+        console.log("Error updating Medicine", err);
     }
 }
+
+
 
 export async function MedicineDelete(medicineId:string){
     try {
