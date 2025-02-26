@@ -9,20 +9,22 @@ export async function createUser(user : User) {
 
     const addedUser = await prisma.user.create({
         data: {
+            name : user.name,
             username : user.username,
             password : hashedPassword,
+            role : user.role
         },
     });
     console.log("User created:", addedUser);
 }
 
 export async function verifyUserCredentials(verifyUser: User) {
-    const user : User | null = await prisma.user.findUnique({
+    const userInDB = await prisma.user.findUnique({
         where: { username: verifyUser.username },
     });
-    if (!user) {
+    if (!userInDB) {
         return false;
     }
 
-    return await bcrypt.compare(verifyUser.password, user.password);
+    return await bcrypt.compare(verifyUser.password, userInDB.password);
 }
