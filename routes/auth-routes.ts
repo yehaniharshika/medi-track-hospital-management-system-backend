@@ -10,8 +10,6 @@ const router = express.Router();
 
 router.post("/login", async (req, res) => {
     console.log('Login')
-    /*const username = req.body.user.username;
-    const password = req.body.user.password;*/
 
     const username = req.body.username;
     const password = req.body.password;
@@ -35,12 +33,12 @@ router.post("/login", async (req, res) => {
 
 })
 
+//Register route
 router.post("/register", async (req, res) => {
     console.log('Register', req.body);
-    const username = req.body.username;
-    const password = req.body.password;
+    const {  name,username, password, role } = req.body;
 
-    const user : User = {username, password};
+    const user : User = {name, username, password, role};
 
     try{
         const registration = await createUser(user);
@@ -68,6 +66,7 @@ router.post("/refresh-token", async (req, res) => {
     }
 })
 
+// Authenticate Token Middleware
 export function authenticateToken(req : express.Request, res : express.Response, next : express.NextFunction){
     const authHeader = req.headers.authorization;
     const token = authHeader?.split(' ')[1];
