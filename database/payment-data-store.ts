@@ -16,8 +16,6 @@ export async function PaymentCreate(paymentData: Payment) {
                         getQty: Number(medicine.getQty),
                         price: String(medicine.price), // Convert number to string
                         totalPrice: String(medicine.totalPrice),
-                        discount: String(medicine.discount),
-                        balance: String(medicine.balance),
                     }))
                 }
             },

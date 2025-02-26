@@ -4,6 +4,4 @@ export default class MedicinePaymentDetails{
     getQty!:number;
     price!:string;
     totalPrice!: string;
-    discount!: string;
-    balance!: string;
 }
