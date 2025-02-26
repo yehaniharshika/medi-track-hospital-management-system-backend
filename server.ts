@@ -7,6 +7,7 @@ import medicalReportRoutes from "./routes/medical-report-routes";
 import appointmentRoutes from "./routes/appointment-routes";
 import medicineRoutes from "./routes/medicine-routes";
 import paymentRoutes from "./routes/payment-routes";
+import authRoutes from "./routes/auth-routes";
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.use('/',(req,res,next)=>{
     next();
 })
 
+app.use('/auth',authRoutes);
 app.use('/department',departmentRoutes);
 app.use('/doctor',doctorRoutes);
 app.use('/nurse',nurseRoutes);
@@ -29,6 +31,10 @@ app.use('/medicalReport',medicalReportRoutes);
 app.use('/appointment',appointmentRoutes);
 app.use('/medicine',medicineRoutes);
 app.use('/payment',paymentRoutes);
+
+
+
+
 
 
 
