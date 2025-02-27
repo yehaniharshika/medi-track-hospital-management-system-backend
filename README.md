@@ -1,4 +1,4 @@
-# MediTrack - Medical Center System 🩺💊
+# MediTrack - Medical Center Management System 🩺💊
 
 "MediTrack" is a robust mini medical center management system designed to streamline health operations by providing tools for managing doctors, nurses, patients, medicines, appoinments,medical Reports and payments effectively.
 making it an essential tool for modern health services.
