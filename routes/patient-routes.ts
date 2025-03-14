@@ -1,6 +1,7 @@
 import multer from "multer";
 import express, {Request, Response} from "express";
-import {getAllPatients, PatientAdd, PatientDelete, PatientUpdate} from "../database/patient-data-store";
+import {getAllPatients, getPatientsCount, PatientAdd, PatientDelete, PatientUpdate} from "../database/patient-data-store";
+import {authenticateToken} from "./auth-routes";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -10,7 +11,7 @@ interface MulterRequest extends Request {
     file?: Express.Multer.File;
 }
 
-router.post("/add", upload.single("patientImg"), async (req: MulterRequest, res: Response) => {
+router.post("/add",authenticateToken, upload.single("patientImg"), async (req: MulterRequest, res: Response) => {
     try {
         const { patientId, patientName, age, addressLine1, addressLine2, postalCode, gender, contactNumber, blood_type, chronic_diseases, last_visit_date } = req.body;
         const patientImg = req.file ? req.file.buffer.toString("base64") : "";
@@ -36,7 +37,7 @@ router.post("/add", upload.single("patientImg"), async (req: MulterRequest, res:
     }
 });
 
-router.put("/update/:patientId", upload.single("patientImg"), async (req: MulterRequest, res: Response) => {
+router.put("/update/:patientId", authenticateToken,upload.single("patientImg"), async (req: MulterRequest, res: Response) => {
     const patientId: string = req.params.patientId;
 
     const { patientName, age, addressLine1, addressLine2, postalCode, gender, contactNumber, blood_type, chronic_diseases, last_visit_date  } = req.body;
@@ -57,7 +58,7 @@ router.put("/update/:patientId", upload.single("patientImg"), async (req: Multer
     }
 });
 
-router.delete("/delete/:patientId",async (req,res) => {
+router.delete("/delete/:patientId",authenticateToken,async (req,res) => {
     const patientId : string = String(req.params.patientId);
     try {
         const deletedPatient = await PatientDelete(patientId);
@@ -67,7 +68,7 @@ router.delete("/delete/:patientId",async (req,res) => {
     }
 });
 
-router.get("/view",async (req,res) => {
+router.get("/view",authenticateToken ,async (req,res) => {
     try {
         const patients = await getAllPatients();
         res.json(patients);
@@ -75,5 +76,14 @@ router.get("/view",async (req,res) => {
         console.log("Error getting patients",err);
     }
 });
+
+router.get("/patient-count",authenticateToken,async (req,res) => {
+    try {
+        const patientsCount = await getPatientsCount();
+        res.status(200).json(patientsCount);
+    }catch (err){
+        res.status(500).json({ error: "Failed to get patient count" });
+    }
+})
 
 export default router;
