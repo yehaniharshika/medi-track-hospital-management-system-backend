@@ -6,10 +6,11 @@ import {
     AppointmentUpdate,
     getAllAppointments,
 } from "../database/appointment-data-store";
+import {authenticateToken} from "./auth-routes";
 
 const router = express.Router();
 
-router.post("/add",async (req,res) => {
+router.post("/add",authenticateToken,async (req,res) => {
     console.log(req.body);
     const appointment : Appointment = req.body;
     try {
@@ -21,7 +22,7 @@ router.post("/add",async (req,res) => {
     }
 });
 
-router.delete("/delete/:appointmentCode",async (req,res) => {
+router.delete("/delete/:appointmentCode",authenticateToken ,async (req,res) => {
     const appointmentCode : string = String(req.params.appointmentCode);
     try {
         const deletedAppointment = await AppointmentDelete(appointmentCode);
@@ -31,7 +32,7 @@ router.delete("/delete/:appointmentCode",async (req,res) => {
     }
 });
 
-router.put("/update/:appointmentCode",async (req,res) =>{
+router.put("/update/:appointmentCode",authenticateToken,async (req,res) =>{
     const appointmentCode : string = String(req.params.appointmentCode);
     const appointment : Appointment = req.body;
 
@@ -43,7 +44,7 @@ router.put("/update/:appointmentCode",async (req,res) =>{
     }
 });
 
-router.get("/view",async (req,res) => {
+router.get("/view",authenticateToken,async (req,res) => {
     try {
         const appointments = await getAllAppointments();
         res.json(appointments);

@@ -6,10 +6,11 @@ import {
     MedicalReportUpdate
 } from "../database/medical-report-data-store";
 import express from "express";
+import {authenticateToken} from "./auth-routes";
 
 const router = express.Router();
 
-router.post("/add",async(req,res) => {
+router.post("/add",authenticateToken,async(req,res) => {
     console.log(req.body);
     const medicalReport : MedicalReport = req.body;
     try {
@@ -21,7 +22,7 @@ router.post("/add",async(req,res) => {
     }
 });
 
-router.delete("/delete/:medicalReportId",async (req,res) => {
+router.delete("/delete/:medicalReportId",authenticateToken,async (req,res) => {
     const medicalReportId : string = String(req.params.medicalReportId);
     try {
         const deletedMedicalReport = await MedicalReportDelete(medicalReportId);
@@ -31,7 +32,7 @@ router.delete("/delete/:medicalReportId",async (req,res) => {
     }
 });
 
-router.put("/update/:medicalReportId",async (req,res) => {
+router.put("/update/:medicalReportId",authenticateToken,async (req,res) => {
     const medicalReportId:string = String(+req.params.medicalReportId);
     const medicalReport : MedicalReport = req.body;
 
@@ -43,7 +44,7 @@ router.put("/update/:medicalReportId",async (req,res) => {
     }
 });
 
-router.get("/view",async (req,res) => {
+router.get("/view",authenticateToken,async (req,res) => {
     try {
         const medicalReports = await getAllMedicalReports();
         res.json(medicalReports);

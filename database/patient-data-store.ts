@@ -75,3 +75,13 @@ export async function getAllPatients(){
     }
 }
 
+export async function getPatientsCount() {
+    try {
+        const patientCount = await prisma.patient.count();
+        console.log("Total Patient count: ",patientCount);
+        return patientCount;
+    }catch (err) {
+        console.log("Error getting patient count", err);
+    }
+}
+

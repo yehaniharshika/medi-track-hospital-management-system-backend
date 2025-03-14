@@ -1,9 +1,10 @@
 import express from "express";
 import {PaymentCreate} from "../database/payment-data-store";
+import {authenticateToken} from "./auth-routes";
 
 const router = express.Router();
 
-router.post("/create",async (req,res) => {
+router.post("/create",authenticateToken,async (req,res) => {
     console.log(req.body);
     const payment = req.body;
 

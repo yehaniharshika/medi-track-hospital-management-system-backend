@@ -1,6 +1,7 @@
 import express, {Request, Response} from "express";
 import multer from "multer";
 import {getAllNurses, NurseAdd, NurseDelete, NurseUpdate} from "../database/nurse-data-store";
+import {authenticateToken} from "./auth-routes";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -10,7 +11,7 @@ interface MulterRequest extends Request {
     file?: Express.Multer.File;
 }
 
-router.post("/add", upload.single("nurseImg"), async (req: MulterRequest, res: Response) => {
+router.post("/add", authenticateToken,upload.single("nurseImg"), async (req: MulterRequest, res: Response) => {
     try {
         const { nurseId, nurseName, gender, contactNumber, qualification, email, departmentId } = req.body;
         const nurseImg = req.file ? req.file.buffer.toString("base64") : "";
@@ -32,7 +33,7 @@ router.post("/add", upload.single("nurseImg"), async (req: MulterRequest, res: R
     }
 });
 
-router.delete("/delete/:nurseId",async (req,res) => {
+router.delete("/delete/:nurseId",authenticateToken, async (req,res) => {
     const nurseId : string = String(req.params.nurseId);
     try {
         const deletedNurse = await NurseDelete(nurseId);
@@ -42,7 +43,7 @@ router.delete("/delete/:nurseId",async (req,res) => {
     }
 });
 
-router.put("/update/:nurseId", upload.single("nurseImg"), async (req: MulterRequest, res: Response) => {
+router.put("/update/:nurseId", authenticateToken, upload.single("nurseImg"), async (req: MulterRequest, res: Response) => {
     const nurseId: string = req.params.nurseId;
 
     const { nurseName, gender, contactNumber, qualification, email, departmentId } = req.body;
@@ -63,7 +64,7 @@ router.put("/update/:nurseId", upload.single("nurseImg"), async (req: MulterRequ
     }
 });
 
-router.get("/view",async (req,res) => {
+router.get("/view", authenticateToken,async (req,res) => {
     try {
         const nurses = await getAllNurses();
         res.json(nurses);
