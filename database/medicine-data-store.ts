@@ -69,3 +69,13 @@ export async function getAllMedicines(){
         console.log("Error getting Medicines",err);
     }
 }
+
+export async function getMedicinesCount() {
+    try {
+        const medicineCount = await prisma.medicine.count();
+        console.log("Total Medicines count: ",medicineCount);
+        return medicineCount;
+    }catch (err) {
+        console.log("Error getting Medicines count", err);
+    }
+}

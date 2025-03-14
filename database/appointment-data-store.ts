@@ -63,3 +63,13 @@ export async function getAllAppointments(){
         console.log("Error getting Appointments from prisma data",err);
     }
 }
+
+export async function getAppointmentsCount() {
+    try {
+        const appointmentCount = await prisma.appointment.count();
+        console.log("Total Appointments count: ",appointmentCount);
+        return appointmentCount;
+    }catch (err) {
+        console.log("Error getting Appointments count", err);
+    }
+}

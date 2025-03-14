@@ -4,9 +4,10 @@ import {
     AppointmentAdd,
     AppointmentDelete,
     AppointmentUpdate,
-    getAllAppointments,
+    getAllAppointments, getAppointmentsCount,
 } from "../database/appointment-data-store";
 import {authenticateToken} from "./auth-routes";
+import {getDoctorsCount} from "../database/doctor-data-store";
 
 const router = express.Router();
 
@@ -50,6 +51,15 @@ router.get("/view",authenticateToken,async (req,res) => {
         res.json(appointments);
     }catch (err){
         console.log("Error getting Appointments",err);
+    }
+});
+
+router.get("/appointment-count",authenticateToken,async (req,res) => {
+    try {
+        const appointmentsCount = await getAppointmentsCount();
+        res.status(200).json(appointmentsCount);
+    }catch (err){
+        res.status(500).json({ error: "Failed to get appointments count" });
     }
 });
 

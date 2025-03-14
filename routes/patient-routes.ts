@@ -84,6 +84,6 @@ router.get("/patient-count",authenticateToken,async (req,res) => {
     }catch (err){
         res.status(500).json({ error: "Failed to get patient count" });
     }
-})
+});
 
 export default router;

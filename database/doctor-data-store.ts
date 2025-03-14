@@ -80,3 +80,13 @@ export async function getAllDoctors(){
         console.log("Error getting doctors from prisma data",err);
     }
 }
+
+export async function getDoctorsCount() {
+    try {
+        const doctorCount = await prisma.doctor.count();
+        console.log("Total Doctors count: ",doctorCount);
+        return doctorCount;
+    }catch (err) {
+        console.log("Error getting Doctors count", err);
+    }
+}

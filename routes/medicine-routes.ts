@@ -1,7 +1,14 @@
 import multer from "multer";
 import express, {Request, Response} from "express";
-import {getAllMedicines, MedicineAdd, MedicineDelete, MedicineUpdate} from "../database/medicine-data-store";
+import {
+    getAllMedicines,
+    getMedicinesCount,
+    MedicineAdd,
+    MedicineDelete,
+    MedicineUpdate
+} from "../database/medicine-data-store";
 import {authenticateToken} from "./auth-routes";
+import {getDoctorsCount} from "../database/doctor-data-store";
 
 const upload = multer({ storage: multer.memoryStorage() });
 
@@ -70,6 +77,15 @@ router.get("/view",authenticateToken,async (req,res) => {
         res.json(medicines);
     }catch (err){
         console.log("Error getting medicines",err);
+    }
+});
+
+router.get("/medicine-count",authenticateToken,async (req,res) => {
+    try {
+        const medicinesCount = await getMedicinesCount();
+        res.status(200).json(medicinesCount);
+    }catch (err){
+        res.status(500).json({ error: "Failed to get Medicines count" });
     }
 });
 export default router;
