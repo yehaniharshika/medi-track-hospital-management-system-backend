@@ -127,6 +127,6 @@ model MedicinePaymentDetails {
   medicine                 Medicine @relation(fields: [medicineId], references: [medicineId], onDelete: Cascade)
   medicineId               String
   getQty                   Int
-  price                    String
-  totalPrice               String
+  price                    Float
+  totalPrice               Float
 }

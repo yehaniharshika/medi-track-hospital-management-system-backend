@@ -14,8 +14,8 @@ export async function PaymentCreate(paymentData: Payment) {
                     create: paymentData.medicineItems.map(medicine => ({
                         medicineId: medicine.medicineId,
                         getQty: Number(medicine.getQty),
-                        price: String(medicine.price), // Convert number to string
-                        totalPrice: String(medicine.totalPrice),
+                        price: Number(medicine.price),
+                        totalPrice: Number(medicine.totalPrice)
                     }))
                 }
             },
@@ -51,3 +51,21 @@ export async function PaymentCreate(paymentData: Payment) {
         throw err;
     }
 }
+
+export async function getTotalIncome() {
+    try {
+        const totalIncome = await prisma.medicinePaymentDetails.aggregate({
+            _sum: {
+                totalPrice: true
+            }
+        });
+
+        const income = totalIncome._sum.totalPrice || 0; // Default to 0 if no data
+        console.log("Total Income: ", income);
+        return income;
+    } catch (err) {
+        console.error("Error calculating total income", err);
+        throw err;
+    }
+}
+

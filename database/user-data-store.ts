@@ -28,3 +28,30 @@ export async function verifyUserCredentials(verifyUser: User) {
 
     return await bcrypt.compare(verifyUser.password, userInDB.password);
 }
+
+export async function resetPassword(username: string, newPassword: string) {
+    try {
+        // Find user by username
+        const user = await prisma.user.findUnique({
+            where: { username },
+        });
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update user's password
+        await prisma.user.update({
+            where: { username },
+            data: { password: hashedPassword },
+        });
+
+        return { message: "Password reset successfully" };
+    } catch (error) {
+        console.error("Error resetting password:", error);
+        throw new Error("Password reset failed");
+    }
+}

@@ -84,4 +84,3 @@ export async function getPatientsCount() {
         console.log("Error getting patient count", err);
     }
 }
-
