@@ -11,7 +11,7 @@ making it an essential tool for modern health services.
 
 
 ### **Backend**
-- **Node.js,Express,js**
+- **Node.js,Express.js**
 - **MySQL + Prisma ORM** : Database management
 - **JWT (JSON Web Token)** : JWT-based authentication
 - **Postman**: API testing and documentation
